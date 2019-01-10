@@ -1,0 +1,32 @@
+{
+  "name": "monitorcourseopenings",
+  "version": "1.0.0",
+  "description": "Monitor UWaterloo course schedule for openings",
+  "main": "monitorCourse.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cron": "^1.6.0",
+    "require": "^2.4.20"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tkhanna42/monitorCourseOpenings.git"
+  },
+  "keywords": [
+    "monitor",
+    "cron",
+    "cheerio",
+    "uwaterloo",
+    "courses"
+  ],
+  "author": "Tarun Khanna",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tkhanna42/monitorCourseOpenings/issues"
+  },
+  "homepage": "https://github.com/tkhanna42/monitorCourseOpenings#readme"
+}
