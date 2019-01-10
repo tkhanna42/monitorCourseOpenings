@@ -2,6 +2,8 @@ const request = require('request');
 const cron = require('cron');
 const cheerio = require('cheerio');
 
+const sendEmail = require('./emailNotification');
+
 // consts
 const ENRL_TOT = 'Enrl Tot';
 const ENRL_CAP = 'Enrl Cap';
@@ -147,21 +149,29 @@ const generateKeys = (firstKey, maxIndex, modulus) => {
   return Array.from({ length }, (_, idx) => firstKey + idx * modulus);
 }
 
-const monitorCourse = async () => {
+const monitorCourse = async (onCompleteCb) => {
   const url = createURL(...getArgs());
   console.log(url);
   const classHTML = await getHTML(url);
 
   parseClassHTML(classHTML, () => {
-    console.log(`Double-check here ${url}`);
+    onCompleteCb && onCompleteCb(url);
     job.stop();
   });
 }
 
+const sendEmailNotification = (url) => {
+  sendEmail(`
+  <h2>monitorCourses has detected an open class!!</h2>
+  <p>You set monitorCourse to notify you for <b>${getArgs().join(', ')}</b></p>
+  <p>The course being monitored may have an open section now!</p>
+  <p>Double-check <a href="${url}">here</a></p>
+  `);
+};
 
-const job = new cron.CronJob('* */30 * * * *', function() {
-  // console.log('URL: ', url);
-  monitorCourse();
+
+const job = new cron.CronJob('* */30 * * * *', function () {
+  monitorCourse(sendEmailNotification);
 }, null, true, 'America/Los_Angeles', null, runOnInit);
 
 job.start();
