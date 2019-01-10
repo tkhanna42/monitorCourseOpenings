@@ -8,7 +8,9 @@
     "cron": "^1.6.0",
     "require": "^2.4.20"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "uglify-js": ">=2.6.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
